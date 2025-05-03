@@ -1,0 +1,145 @@
+---
+interface Props {
+  href: string | undefined;
+  type: string;
+}
+
+const { href, type } = Astro.props;
+---
+
+<script>
+  import { $ } from '@/utils/functions';
+  const $buttonNext = $('.btnNext') as HTMLButtonElement;
+  const $buttonPrev = $('.btnPrev') as HTMLButtonElement;
+  document.addEventListener('keydown', ({ key }) => {
+    if (['ArrowRight', 'D', 'd'].includes(key)) {
+      $buttonNext.click();
+    } else if (['ArrowLeft', 'A', 'a'].includes(key)) {
+      $buttonPrev.click();
+    }
+  });
+</script>
+
+<a class={`button ${type === 'prev' ? 'btnPrev' : 'btnNext'}`} href={href}>
+  <div class='button-outer'>
+    <div class='button-inner'>
+      <img
+        src=`${Astro.site}/assets/arrow.png`
+        alt='arrow icon'
+        class={`imgArrow ${type === 'prev' ? 'arrowleft' : ''}`}
+      />
+    </div>
+  </div>
+</a>
+
+<style>
+  .button {
+    all: unset;
+    cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    position: relative;
+    border-radius: 100vmax;
+    background-color: rgba(0, 0, 0, 0.75);
+    box-shadow:
+      -0.15vmax -0.15vmax 0.15vmax -0.075vmax rgba(5, 5, 5, 0.25),
+      0.0375vmax 0.0375vmax 0.0675vmax 0 rgba(5, 5, 5, 0.1);
+  }
+
+  .imgArrow {
+    width: 1.3vmax;
+
+    &.arrowleft {
+      transform: scaleX(-1);
+    }
+  }
+
+  .button::after {
+    content: '';
+    position: absolute;
+    z-index: 0;
+    width: calc(100% + 0.3vmax);
+    height: calc(100% + 0.3vmax);
+    top: -0.15vmax;
+    left: -0.15vmax;
+    border-radius: inherit;
+    background: linear-gradient(
+      -135deg,
+      rgba(5, 5, 5, 0.5),
+      transparent 20%,
+      transparent 100%
+    );
+    filter: blur(0.0125vmax);
+    opacity: 0.25;
+    mix-blend-mode: multiply;
+  }
+
+  .button .button-outer {
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    transition: box-shadow 300ms ease;
+    will-change: box-shadow;
+    box-shadow:
+      0 0.05vmax 0.05vmax -0.01vmax rgba(5, 5, 5, 1),
+      0 0.01vmax 0.01vmax -0.01vmax rgba(5, 5, 5, 0.5),
+      0.15vmax 0.3vmax 0.1vmax -0.01vmax rgba(5, 5, 5, 0.25);
+  }
+
+  .button:hover .button-outer {
+    box-shadow:
+      0 0 0 0 rgba(5, 5, 5, 1),
+      0 0 0 0 rgba(5, 5, 5, 0.5),
+      0 0 0 0 rgba(5, 5, 5, 0.25);
+  }
+
+  .button-inner {
+    --inset: 0.035vmax;
+    position: relative;
+    z-index: 1;
+    border-radius: inherit;
+    padding: 1vmax 1.5vmax;
+    font-size: 1.2vmax;
+    background-image: linear-gradient(
+      135deg,
+      rgba(230, 230, 230, 1),
+      rgba(180, 180, 180, 1)
+    );
+    transition:
+      box-shadow 300ms ease,
+      clip-path 250ms ease,
+      background-image 250ms ease,
+      transform 250ms ease;
+    will-change: box-shadow, clip-path, background-image, transform;
+    overflow: clip;
+    clip-path: inset(0 0 0 0 round 100vmax);
+    box-shadow:
+        /* 1 */
+      0 0 0 0 inset rgba(5, 5, 5, 0.1),
+      /* 2 */ -0.05vmax -0.05vmax 0.05vmax 0 inset rgba(5, 5, 5, 0.25),
+      /* 3 */ 0 0 0 0 inset rgba(5, 5, 5, 0.1),
+      /* 4 */ 0 0 0.05vmax 0.2vmax inset rgba(255, 255, 255, 0.25),
+      /* 5 */ 0.025vmax 0.05vmax 0.1vmax 0 inset rgba(255, 255, 255, 1),
+      /* 6 */ 0.12vmax 0.12vmax 0.12vmax inset rgba(255, 255, 255, 0.25),
+      /* 7 */ -0.075vmax -0.25vmax 0.25vmax 0.1vmax inset rgba(5, 5, 5, 0.25);
+  }
+
+  .button:active .button-inner {
+    clip-path: inset(
+      clamp(1px, 0.0625vmax, 2px) clamp(1px, 0.0625vmax, 2px)
+        clamp(1px, 0.0625vmax, 2px) clamp(1px, 0.0625vmax, 2px) round 100vmax
+    );
+    box-shadow:
+        /* 1 */
+      0.1vmax 0.15vmax 0.05vmax 0 inset rgba(5, 5, 5, 0.75),
+      /* 2 */ -0.025vmax -0.03vmax 0.05vmax 0.025vmax inset rgba(5, 5, 5, 0.5),
+      /* 3 */ 0.25vmax 0.25vmax 0.2vmax 0 inset rgba(5, 5, 5, 0.5),
+      /* 4 */ 0 0 0.05vmax 0.5vmax inset rgba(255, 255, 255, 0.15),
+      /* 5 */ 0 0 0 0 inset rgba(255, 255, 255, 1),
+      /* 6 */ 0.12vmax 0.12vmax 0.12vmax inset rgba(255, 255, 255, 0.25),
+      /* 7 */ -0.075vmax -0.12vmax 0.2vmax 0.1vmax inset rgba(5, 5, 5, 0.25);
+  }
+
+  .button:active .button-inner {
+    transform: scale(0.975);
+  }
+</style>

@@ -1,0 +1,121 @@
+---
+interface Props {
+  image: string;
+  alt: string;
+}
+
+const { image, alt } = Astro.props;
+---
+
+<div class='card'>
+  <div class='am-header'>
+    <div class='top'>
+      <div class='circle'>
+        <span class='red circle2'></span>
+      </div>
+      <div class='circle'>
+        <span class='yellow circle2'></span>
+      </div>
+      <div class='circle'>
+        <span class='green circle2'></span>
+      </div>
+      <div class='title'>
+        <p id='title2'>...{image}</p>
+      </div>
+    </div>
+  </div>
+  <div class='code-container'>
+    <img src={image} alt={alt} />
+  </div>
+</div>
+<style>
+  .card {
+    min-width: 15vmax;
+    background-color: #24233b;
+    border-radius: 1vmax;
+    z-index: 1;
+    box-shadow: 0 0.65vmax 0.65vmax rgb(73, 70, 92);
+    transition:
+      0.5s transform ease,
+      box-shadow 0.5s ease;
+    aspect-ratio: 11 / 14;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card:hover {
+    transform: translateY(-0.45vmax);
+    box-shadow: 0 0.65vmax 0.65vmax rgb(0, 0, 0);
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    padding: 0.5vmax;
+    padding-left: 1vmax;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .circle {
+    padding: 0 0.2vmax;
+    height: fit-content;
+    height: 100%;
+  }
+
+  .circle2 {
+    display: flex;
+    align-content: center;
+    width: 0.65vmax;
+    height: 0.65vmax;
+    padding: 0.1vmax;
+    border-radius: 5vmax;
+  }
+
+  .red {
+    background-color: #ff605c;
+  }
+
+  .yellow {
+    background-color: #ffbd44;
+  }
+
+  .green {
+    background-color: #00ca4e;
+  }
+
+  .am-header {
+    padding-block: 0.5vmax;
+    border-radius: 0.3vmax;
+    height: fit-content;
+  }
+
+  .title {
+    justify-self: right;
+  }
+
+  #title2 {
+    color: white;
+    padding-left: 3.25vmax;
+    font-size: 1vmax;
+    text-align: right;
+    width: 100%;
+  }
+
+  .code-container {
+    text-align: center;
+    height: 100%;
+    padding: 0.8vmax;
+    padding-top: 0.2vmax;
+    flex-grow: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 0.5vmax;
+      border: 0.05vmax solid #e9e9e944;
+    }
+  }
+</style>

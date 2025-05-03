@@ -1,0 +1,45 @@
+---
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<!doctype html>
+<html lang='en'>
+  <head>
+    <meta charset='UTF-8' />
+    <meta name='viewport' content='width=device-width' />
+    <link rel='icon' type='image/svg+xml' href={`${Astro.site}/assets/favicon.webp`} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class='grid-background'></div>
+
+    <slot />
+  </body>
+</html>
+
+<style>
+  .grid-background {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    background-image: linear-gradient(to right, #8080800a 1px, transparent 1px),
+      linear-gradient(to bottom, #8080800a 1px, transparent 1px);
+    background-size: 14px 24px;
+  }
+</style>
+
+<!-- <script>
+  window.addEventListener('resize', e => {
+    document.title = `${window.innerWidth}`;
+  });
+</script>
+ -->

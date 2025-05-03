@@ -1,0 +1,185 @@
+<section class='hero'>
+  <h1>PAGINATION WITH ASTRO</h1>
+  <a href=`${Astro.site}/gallery/1` class='button'>Explore Images</a>
+</section>
+
+<script>
+  import { $ } from '@/utils/functions';
+  const $hero = $('.hero');
+  function spark(event: MouseEvent) {
+    const { clientX, clientY } = event;
+    const element = document.createElement('i');
+    element.classList.add('spark');
+    element.style.left = `${clientX}px`;
+    element.style.top = `${clientY}px`;
+    element.style.scale = `${Math.random() * 2 + 1}`;
+    element.style.setProperty('--x', getRandomPosition());
+    element.style.setProperty('--y', getRandomPosition());
+
+    setTimeout(() => element.remove(), 2000);
+
+    function getRandomPosition() {
+      return `${Math.random() * 400 - 200}px`;
+    }
+
+    $hero?.appendChild(element);
+  }
+
+  document.addEventListener('mousemove', spark);
+</script>
+
+<style>
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  :global(.spark) {
+    width: 0.5vmax;
+    height: 0.5vmax;
+    background-color: #0f0;
+    position: absolute;
+    z-index: 50;
+    pointer-events: none;
+    animation: sparkAnimation 2s linear forwards;
+  }
+
+  @keyframes sparkAnimation {
+    0% {
+      background-color: #0f0;
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    50% {
+      background-color: #2e42ff;
+    }
+    100% {
+      opacity: 0;
+      transform: translate(var(--x), var(--y));
+    }
+  }
+
+  section {
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    place-content: center;
+    flex-direction: column;
+    gap: 1.8vmax;
+    overflow: hidden;
+  }
+
+  h1 {
+    font-size: 5vmax;
+    text-align: center;
+    text-wrap: balance;
+    color: transparent;
+    background-image: var(--gradient-btn);
+    background-clip: text;
+    animation: fadeIn 1s ease-in-out;
+    width: 30%;
+    user-select: none;
+    line-height: 1;
+    position: relative;
+    z-index: 100;
+
+    @media (width <= 1111px) {
+      width: 60%;
+    }
+  }
+
+  @keyframes slideTop {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .button {
+    --color: #2e42ff;
+    background-color: transparent;
+    border-radius: 1vmax;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    font-weight: 700;
+    font-size: 1.2vmax;
+    padding: 0.7vmax 1.3vmax;
+    border: 0.1vmax solid var(--color);
+    font-family: inherit;
+    text-transform: uppercase;
+    color: #ffffff;
+    z-index: 1;
+    display: inline-block;
+    width: fit-content;
+    text-decoration: none;
+    margin-inline: auto;
+    background: linear-gradient(135deg, #2e42ff, #6a75ff);
+    box-shadow: 0 0.26vmax 0.781vmax rgba(0, 0, 0, 0.1);
+    animation: slideTop 1s ease both;
+    z-index: 100;
+  }
+
+  .button::before,
+  .button::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 50px;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+    background-color: var(--color);
+    transition: 0.7s ease-in-out;
+  }
+
+  .button::before {
+    top: -1.042vmax;
+    left: -1.042vmax;
+  }
+
+  .button::after {
+    left: calc(100% + 1.042vmax);
+    top: calc(100% + 1.042vmax);
+  }
+
+  .button:hover::before,
+  .button:hover::after {
+    height: 26.719vmax;
+    width: 26.719vmax;
+  }
+
+  .button:hover {
+    background: linear-gradient(135deg, #2e42ff, #6a75ff);
+    color: #ffffff;
+    border-color: #6a75ff;
+    box-shadow:
+      0 0.391vmax 0.977vmax rgba(46, 66, 255, 0.4),
+      0 0.521vmax 1.563vmax rgba(46, 66, 255, 0.2);
+    transform: translateY(-0.195vmax);
+  }
+
+  .button:active {
+    transform: scale(0.97);
+    filter: brightness(0.85);
+    box-shadow: 0 0.195vmax 0.521vmax rgba(0, 0, 0, 0.15);
+
+    background: linear-gradient(135deg, #2e42ff, #5c6bff);
+  }
+
+  .button:focus {
+    outline: none;
+    border-color: #7289da;
+    box-shadow: 0 0 0 0.26vmax rgba(46, 66, 255, 0.3);
+  }
+</style>

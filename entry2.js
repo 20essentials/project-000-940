@@ -1,0 +1,1 @@
+import{$ as e}from"./chunk.js";const n=e(".btnNext"),o=e(".btnPrev");document.addEventListener("keydown",({key:t})=>{["ArrowRight","D","d"].includes(t)?n.click():["ArrowLeft","A","a"].includes(t)&&o.click()});

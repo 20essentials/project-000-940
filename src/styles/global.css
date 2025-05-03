@@ -15,6 +15,7 @@ img {
   user-select: none;
 }
 
+
 :root {
   --global-blue: lime;
   --gradient-btn: linear-gradient(

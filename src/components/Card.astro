@@ -2,9 +2,10 @@
 interface Props {
   image: string;
   alt: string;
+  titleImage: string
 }
 
-const { image, alt } = Astro.props;
+const { image, alt, titleImage } = Astro.props;
 ---
 
 <div class='card'>
@@ -20,7 +21,7 @@ const { image, alt } = Astro.props;
         <span class='green circle2'></span>
       </div>
       <div class='title'>
-        <p id='title2'>...{image}</p>
+        <p id='title2'>...{titleImage}</p>
       </div>
     </div>
   </div>

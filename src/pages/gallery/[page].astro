@@ -11,7 +11,8 @@ interface Gallery {
 export const getStaticPaths: GetStaticPaths = ({ paginate }) => {
   const arrayPages: Gallery[] = Array.from({ length: 28 }, (_, i) => {
     return {
-      image: `${Astro.site}/assets/j${i + 1}.avif`
+      image: `${Astro.site}/assets/j${i + 1}.avif`,
+      titleImage: `/assets/j${i + 1}.avif`
     };
   });
 
@@ -26,8 +27,8 @@ const { first, last, next, prev } = url;
 <Layout title={`Gallery Page #${currentPage}`}>
   <section class='container'>
     {
-      data.map(({ image }, i) => {
-        return <Card image={image} alt={`Image ${i + 1}`} />;
+      data.map(({ image, titleImage }, i) => {
+        return <Card image={image} titleImage={titleImage} alt={`Image ${i + 1}`} />;
       })
     }
     <nav class='container-buttons'>

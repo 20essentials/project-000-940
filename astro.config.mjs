@@ -7,5 +7,16 @@ export default defineConfig({
     assets: "static" ,
   },
   base: '/project-000-940/',
-  site: 'https://20essentials.github.io/project-000-940'
+  site: 'https://20essentials.github.io/project-000-940',
+  vite: {
+    build: {
+      rollupOptions: {
+        output: {
+          entryFileNames: 'entry.js',
+          chunkFileNames: 'chunk.js',
+          assetFileNames: 'asset[extname]',
+        },
+      },
+    },
+  },
 });
